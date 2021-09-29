@@ -1,1 +1,11 @@
-<p>detail-movie works!</p>
+<app-spinner *ngIf="loadingListMovies"></app-spinner>
+
+<div *ngIf="!loadingListMovies">
+    <div class="movie--empty" *ngIf="!movie else listMovieTemplate">
+        Esta película no existe en nuestra base de datos
+    </div>
+    {{movie | json}}
+    <ng-template #listMovieTemplate>
+
+    </ng-template>
+</div>
