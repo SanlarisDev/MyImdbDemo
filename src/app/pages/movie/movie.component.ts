@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observer} from 'rxjs';
 import { SpinnerMovieService } from 'src/app/pages/movie/spinner-movie.service';
+import { URLS } from 'src/app/shared/urls';
 import { Movie } from './movie';
 import { MovieService } from './movie.service';
 
@@ -12,6 +12,7 @@ import { MovieService } from './movie.service';
 export class MovieComponent implements OnInit {
   public listMovies?: Movie[];
   public loadingListMovies: boolean = true;
+  public urls = URLS;
 
   constructor(private movieService:MovieService, public loadingService: SpinnerMovieService) {
   }

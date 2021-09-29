@@ -7,14 +7,18 @@
     <ng-template #listMovieTemplate>
         <div class="listaMovie">
             <mat-card class="listaMovie__cardMovie" *ngFor="let movieItem of listMovies">
-                <mat-card-header>
-                    <mat-card-title>{{movieItem.title}}</mat-card-title>
-                </mat-card-header>
-                <img mat-card-image src="{{movieItem.poster || 'https://upload.wikimedia.org/wikipedia/commons/b/ba/No_image_available_400_x_600.svg'}} ">
+                <a [routerLink]="'./'+ movieItem.id">
+                    <mat-card-header>
+                        <mat-card-title>
+                            {{movieItem.title}}
+                        </mat-card-title>
+                    </mat-card-header>
+                    <img mat-card-image src="{{movieItem.poster || 'https://upload.wikimedia.org/wikipedia/commons/b/ba/No_image_available_400_x_600.svg'}} ">
+                </a>
                 <mat-card-content>
                     <span *ngFor="let genre of movieItem.genre ">
-                #{{genre}}
-              </span>
+                      <button mat-button color="primary"><a routerLink="../{{urls.COMPANY}}/{{movieItem.id}}">#{{genre | translate}}</a></button>
+                    </span>
                 </mat-card-content>
             </mat-card>
 
