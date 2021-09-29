@@ -5,6 +5,9 @@ import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { DialogInfoComponent } from './components/dialog-info/dialog-info.component';
+import {MatChipsModule} from '@angular/material/chips';
+import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,9 @@ import { DialogInfoComponent } from './components/dialog-info/dialog-info.compon
 
     // material
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+
+    TranslateModule.forChild({extend: true})
   ],
   exports: [
     //vendor
@@ -28,9 +33,13 @@ import { DialogInfoComponent } from './components/dialog-info/dialog-info.compon
     // material
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatChipsModule,
+    MatButtonModule,
 
     // components
-    SpinnerComponent
+    SpinnerComponent,
+
+    TranslateModule
   ],
   providers: []
 })

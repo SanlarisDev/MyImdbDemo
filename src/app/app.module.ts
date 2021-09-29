@@ -1,9 +1,8 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { HttpConfigInterceptor } from './shared/interceptors/http-config.interceptor';
 
 
 @NgModule({
@@ -13,6 +12,10 @@ import { HttpConfigInterceptor } from './shared/interceptors/http-config.interce
   imports: [
     CoreModule,
     AppRoutingModule,
+    TranslateModule.forRoot()
+  ],
+  exports: [
+    TranslateModule
   ],
   bootstrap: [AppComponent]
 })
