@@ -1,1 +1,23 @@
-<p>movie works!</p>
+<app-spinner *ngIf="loadingListMovies"></app-spinner>
+
+<div *ngIf="!loadingListMovies">
+    <div class="listaMovie--empty" *ngIf="!listMovies || listMovies.length <= 0 else listMovieTemplate">
+        Sin datos en esta lista
+    </div>
+    <ng-template #listMovieTemplate>
+        <div class="listaMovie">
+            <mat-card class="listaMovie__cardMovie" *ngFor="let movieItem of listMovies">
+                <mat-card-header>
+                    <mat-card-title>{{movieItem.title}}</mat-card-title>
+                </mat-card-header>
+                <img mat-card-image src="{{movieItem.poster || 'https://upload.wikimedia.org/wikipedia/commons/b/ba/No_image_available_400_x_600.svg'}} ">
+                <mat-card-content>
+                    <span *ngFor="let genre of movieItem.genre ">
+                #{{genre}}
+              </span>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+    </ng-template>
+</div>

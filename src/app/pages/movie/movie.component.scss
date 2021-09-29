@@ -1,0 +1,55 @@
+    //@use '@styles/variables.scss' as *;
+    .listaMovie {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: left;
+        padding: 20px 0px;
+        align-items: stretch;
+        align-content: stretch;
+        &__cardMovie {
+            max-width: 400px;
+            width: 20%;
+            margin: 0 1% 20px;
+        }
+        &--empty {
+            color: #424242;
+        }
+    }
+
+    @media (max-width: 1280px) {
+        .listaMovie {
+            &__cardMovie {
+                margin: 0 5px 20px;
+            }
+        }
+    }
+
+    @media (max-width: 1080px) {
+        .listaMovie {
+            &__cardMovie {
+                max-width: 100%;
+                width: 45%;
+                margin: 0 0.5% 20px;
+            }
+        }
+    }
+
+    @media (max-width: 960px) {
+        .listaMovie {
+            &__cardMovie {
+                max-width: 100%;
+                width: 100%;
+                margin: 0 1% 20px;
+            }
+        }
+    }
+
+    @media (max-width: 600px) {
+        .listaMovie {
+            &__cardMovie {
+                max-width: 100%;
+                width: 100%;
+                margin: 0px 0px 20px;
+            }
+        }
+    }
