@@ -4,10 +4,11 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpResponse
+  HttpResponse,
+  HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
@@ -26,7 +27,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         }
       }),
       // TODO: Manejar errores según error
-      catchError(error => {
+      catchError((error: HttpErrorResponse) => {
         this.snackBar.open('Ha ocurrido un error.','', { duration: 2000, panelClass: 'errorSnack' });
         console.log(error);
         return throwError(error);

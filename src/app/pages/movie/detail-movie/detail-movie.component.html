@@ -2,9 +2,8 @@
 
 <div *ngIf="!loadingListMovies">
     <div class="movie--empty" *ngIf="!movie else listMovieTemplate">
-        Esta película no existe en nuestra base de datos
+        {{'Esta película no existe en nuestra base de datos' | translate}}
     </div>
-    {{movie | json}}
     <ng-template #listMovieTemplate>
 
     </ng-template>

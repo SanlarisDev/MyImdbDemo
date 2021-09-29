@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 import { Movie } from '../movie';
 import { MovieService } from '../movie.service';
 
@@ -18,17 +19,15 @@ export class DetailMovieComponent implements OnInit {
     let actualId = this.route.snapshot.paramMap.get('id');
 
     if(actualId){
-      this.movieService.getMovie(actualId).subscribe({
-        next: (_movie) => {this.movie = _movie},
-        error: () => {},
-        complete: () => {this.loadingListMovies = false}
+      this.movieService.getMovie(actualId)
+      .pipe(finalize(() => this.loadingListMovies = false))
+      .subscribe( (_movie: Movie) => {
+        this.movie = _movie; console.log(_movie)
       });
 
     } else {
       this.movie = null;
       this.loadingListMovies = false;
     }
-
   }
-
 }
