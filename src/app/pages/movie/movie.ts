@@ -1,7 +1,7 @@
 import { Actor } from "../actor/actor";
 
 export interface Movie {
-  id: number;
+  id: string;
   title: string;
   poster: string;
   genre: string[];
