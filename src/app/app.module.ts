@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -11,8 +12,11 @@ import { CoreModule } from './core/core.module';
   imports: [
     CoreModule,
     AppRoutingModule,
+    TranslateModule.forRoot()
   ],
-  providers: [],
+  exports: [
+    TranslateModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

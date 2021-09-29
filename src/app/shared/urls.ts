@@ -7,3 +7,9 @@ export const URLS = {
   EDIT: ':id/edit',
   CREATE: 'create'
 }
+
+export const URLSAPI = {
+  MOVIE: 'movies',
+  ACTOR: 'actors',
+  COMPANY: 'companies'
+}
