@@ -26,8 +26,9 @@ export class MovieService {
    * @param id
    * @returns Observable<Movie>
    */
-  getMovie(id: string): Observable<Movie> {
-    return this.http.get<Movie>(this._baseUrl + '/' + id).pipe(retry(3), catchError(this.handleError));
+  getMovie(id: number): Observable<Movie> {
+    const options = {params: new HttpParams({fromString: id.toString()})}
+    return this.http.get<Movie>(this._baseUrl, options).pipe(retry(3), catchError(this.handleError));
   }
 
   /**
@@ -45,7 +46,8 @@ export class MovieService {
    * @returns Observable<Movie>
    */
   setMovie(movie: Movie): Observable<Movie> {
-    return this.http.put<Movie>(this._baseUrl  + '/' + movie.id, movie).pipe(retry(3), catchError(this.handleError));
+    const options = {params: new HttpParams({fromString: movie.id.toString()})}
+    return this.http.put<Movie>(this._baseUrl, options).pipe(retry(3), catchError(this.handleError));
   }
 
   /**
