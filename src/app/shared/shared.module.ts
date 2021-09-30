@@ -3,16 +3,20 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DialogInfoComponent } from './components/dialog-info/dialog-info.component';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { DurationPipe } from './pipes/duration.pipe';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
     SpinnerComponent,
-    DialogInfoComponent
+    DialogInfoComponent,
+    DurationPipe
   ],
   imports: [
     // vendor
@@ -35,9 +39,14 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     MatSnackBarModule,
     MatChipsModule,
     MatButtonModule,
+    MatDividerModule,
+    MatListModule,
 
     // components
     SpinnerComponent,
+
+    //Pipe
+    DurationPipe,
 
     TranslateModule
   ],
