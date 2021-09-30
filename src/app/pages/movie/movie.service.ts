@@ -5,6 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { URLSAPI } from 'src/app/shared/urls';
 import { environment } from 'src/environments/environment';
 import { Movie } from './movie';
+import { MovieEntity } from './movie.entity';
 
 @Injectable()
 export class MovieService {
@@ -15,34 +16,34 @@ export class MovieService {
 
   /**
    *
-   * @returns Observable<Movie[]>
+   * @returns Observable<MovieEntity[]>
    */
-  getAllMovies(): Observable<Movie[]> {
-    return this.http.get<Movie[]>(this._baseUrl).pipe(catchError(this.handleError));
+  getAllMovies(): Observable<MovieEntity[]> {
+    return this.http.get<MovieEntity[]>(this._baseUrl).pipe(catchError(this.handleError));
   }
 
   /**
    *
    * @param id
-   * @returns Observable<Movie>
+   * @returns Observable<MovieEntity>
    */
-  getMovie(id: string): Observable<Movie> {
-    return this.http.get<Movie>(this._baseUrl + '/' + id).pipe(catchError(this.handleError));
+  getMovie(id: string): Observable<MovieEntity> {
+    return this.http.get<MovieEntity>(this._baseUrl + '/' + id).pipe(catchError(this.handleError));
   }
 
   /**
    *
    * @param movie
-   * @returns Observable<Movie>
+   * @returns Observable<MovieEntity>
    */
-  createMovie(movie: Movie): Observable<Movie> {
-    return this.http.put<Movie>(this._baseUrl, movie).pipe(catchError(this.handleError));
+  createMovie(movie: MovieEntity): Observable<MovieEntity> {
+    return this.http.put<MovieEntity>(this._baseUrl, movie).pipe(catchError(this.handleError));
   }
 
   /**
    *
    * @param movie
-   * @returns Observable<Movie>
+   * @returns Observable<MovieEntity>
    */
   setMovie(movie: Movie): Observable<Movie> {
     return this.http.put<Movie>(this._baseUrl  + '/' + movie.id, movie).pipe(catchError(this.handleError));
