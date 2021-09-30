@@ -1,10 +1,23 @@
-<app-spinner *ngIf="loadingListMovies"></app-spinner>
+<app-spinner *ngIf="loadingMovie"></app-spinner>
 
-<div *ngIf="!loadingListMovies">
-    <div class="movie--empty" *ngIf="!movie else listMovieTemplate">
+<div *ngIf="!loadingMovie">
+    <div class="movie--empty" *ngIf="!movie else MovieTemplate">
         {{'Esta película no existe en nuestra base de datos' | translate}}
     </div>
-    <ng-template #listMovieTemplate>
-
+    <ng-template #MovieTemplate>
+        <!-- Poster -->
+        <mat-card class="movie__cardMovie">
+            <img mat-card-image src="{{movie || 'https://upload.wikimedia.org/wikipedia/commons/b/ba/No_image_available_400_x_600.svg'}} ">
+            <mat-card-content class="content">
+                <div class="content__data">
+                    <span class="data__title">Puntiaciones</span>
+                    <span class="data__value">{{movie?.score}}</span>
+                </div>
+                <div class="content__score">
+                    <span class="data__title">Puntiaciones</span>
+                    <span class="data__value">{{movie?.duration}}</span>
+                </div>
+            </mat-card-content>
+        </mat-card>
     </ng-template>
 </div>

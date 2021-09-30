@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
+import { URLS } from 'src/app/shared/urls';
 import { Movie } from '../movie';
 import { MovieService } from '../movie.service';
 
@@ -11,7 +12,8 @@ import { MovieService } from '../movie.service';
 })
 export class DetailMovieComponent implements OnInit {
   public movie!: Movie | null;
-  public loadingListMovies: boolean = true;
+  public loadingMovie: boolean = true;
+  public urls = URLS;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute) { }
 
@@ -20,14 +22,14 @@ export class DetailMovieComponent implements OnInit {
 
     if(actualId){
       this.movieService.getMovie(actualId)
-      .pipe(finalize(() => this.loadingListMovies = false))
+      .pipe(finalize(() => this.loadingMovie = false))
       .subscribe( (_movie: Movie) => {
-        this.movie = _movie; console.log(_movie)
+        this.movie = _movie;
       });
 
     } else {
       this.movie = null;
-      this.loadingListMovies = false;
+      this.loadingMovie = false;
     }
   }
 }
