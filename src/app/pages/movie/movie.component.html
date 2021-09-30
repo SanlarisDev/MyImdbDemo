@@ -17,7 +17,7 @@
                 </a>
                 <mat-card-content>
                     <span *ngFor="let genre of movieItem.genre ">
-                      <button mat-button color="primary"><a routerLink="../{{urls.COMPANY}}/{{movieItem.id}}">#{{genre | translate}}</a></button>
+                      <button mat-button color="primary">#{{genre | translate}}</button>
                     </span>
                 </mat-card-content>
             </mat-card>
