@@ -3,6 +3,7 @@ import { finalize } from 'rxjs/operators';
 import { SpinnerMovieService } from 'src/app/pages/movie/spinner-movie.service';
 import { URLS } from 'src/app/shared/urls';
 import { Movie } from './movie';
+import { MovieEntity } from './movie.entity';
 import { MovieService } from './movie.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { MovieService } from './movie.service';
   styleUrls: ['./movie.component.scss']
 })
 export class MovieComponent implements OnInit {
-  public listMovies?: Movie[];
+  public listMovies?: MovieEntity[];
   public loadingListMovies: boolean = true;
   public urls = URLS;
 
@@ -20,7 +21,7 @@ export class MovieComponent implements OnInit {
 
   ngOnInit(): void {
     this.movieService.getAllMovies().pipe(finalize(() => this.loadingListMovies = false))
-    .subscribe( (_listMovies: Movie[]) => {
+    .subscribe( (_listMovies: MovieEntity[]) => {
       this.listMovies = _listMovies;
     });
   }

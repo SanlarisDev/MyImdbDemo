@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { URLS } from 'src/app/shared/urls';
 import { Movie } from '../movie';
+import { MovieEntity } from '../movie.entity';
 import { MovieService } from '../movie.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { MovieService } from '../movie.service';
   styleUrls: ['./detail-movie.component.scss']
 })
 export class DetailMovieComponent implements OnInit {
-  public movie!: Movie | null;
+  public movie!: MovieEntity | null;
   public loadingMovie: boolean = true;
   public urls = URLS;
 
@@ -23,7 +24,7 @@ export class DetailMovieComponent implements OnInit {
     if(actualId){
       this.movieService.getMovie(actualId)
       .pipe(finalize(() => this.loadingMovie = false))
-      .subscribe( (_movie: Movie) => {
+      .subscribe( (_movie: MovieEntity) => {
         this.movie = _movie;
       });
 
