@@ -1,23 +1,56 @@
 <app-spinner *ngIf="loadingMovie"></app-spinner>
 
 <div *ngIf="!loadingMovie">
-    <div class="movie--empty" *ngIf="!movie else MovieTemplate">
+    <div class="movie--empty" *ngIf="!movie">
         {{'Esta película no existe en nuestra base de datos' | translate}}
     </div>
-    <ng-template #MovieTemplate>
+    <div *ngIf="movie">
         <!-- Poster -->
-        <mat-card class="movie__cardMovie">
-            <img mat-card-image src="{{movie || 'https://upload.wikimedia.org/wikipedia/commons/b/ba/No_image_available_400_x_600.svg'}} ">
-            <mat-card-content class="content">
-                <div class="content__data">
-                    <span class="data__title">Puntiaciones</span>
-                    <span class="data__value">{{movie?.score}}</span>
+        <mat-card class="movie__poster">
+            <img mat-card-image src="{{movie.poster || 'https://upload.wikimedia.org/wikipedia/commons/b/ba/No_image_available_400_x_600.svg'}} ">
+            <mat-card-content class="poster__content">
+                <div class="content__data" *ngIf="movie.hasOwnProperty('imdbRating')">
+                    <span class="data__title">Puntuaciones: </span>
+                    <span class="data__value">{{movie?.imdbRating}}</span>
                 </div>
-                <div class="content__score">
-                    <span class="data__title">Puntiaciones</span>
-                    <span class="data__value">{{movie?.duration}}</span>
+                <div class="content__score" *ngIf="movie.hasOwnProperty('duration')">
+                    <span class="data__title">Duración: </span>
+                    <span class="data__value">{{movie.duration | duration}}</span>
                 </div>
             </mat-card-content>
         </mat-card>
-    </ng-template>
+
+        <!-- Ficha -->
+        <mat-list class="movie__profile">
+            <div class="profile__item">
+                <mat-list-item>Actores</mat-list-item>
+                <mat-divider></mat-divider>
+                <div class="item__content">
+                    <mat-list class="actors" *ngIf="movie.hasOwnProperty('actors')">
+                        <mat-list-item *ngFor="let actor of movie.actors">
+                            <a [routerLink]="urls.ACTOR +'/'+ actor">{{actor}}</a>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </div>
+
+            <div class="profile__item">
+                <mat-list-item>Estudios</mat-list-item>
+                <mat-divider></mat-divider>
+                <div class="item__content">
+                    <span>Estudio</span>
+                </div>
+            </div>
+
+            <div class="profile__item">
+                <mat-list-item>Géneros</mat-list-item>
+                <mat-divider></mat-divider>
+                <div class="item__content">
+                    <span *ngFor="let genre of movie.genre ">
+                  <button mat-button color="primary">#{{genre | translate}}</button>
+                </span>
+                </div>
+            </div>
+        </mat-list>
+    </div>
 </div>
