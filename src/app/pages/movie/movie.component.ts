@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs/operators';
 import { SpinnerMovieService } from 'src/app/pages/movie/spinner-movie.service';
 import { URLS } from 'src/app/shared/urls';
 import { Movie } from './movie';
@@ -18,10 +19,9 @@ export class MovieComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.movieService.getAllMovies().subscribe({
-      next: (_listMovies) => {this.listMovies = _listMovies},
-      error: () => {},
-      complete: () => {this.loadingListMovies = false}
+    this.movieService.getAllMovies().pipe(finalize(() => this.loadingListMovies = false))
+    .subscribe( (_listMovies: Movie[]) => {
+      this.listMovies = _listMovies;
     });
   }
 
