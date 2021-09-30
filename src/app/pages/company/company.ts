@@ -1,7 +1,7 @@
 import { Movie } from "../movie/movie";
 
 export interface Company {
-  id: number,
+  id: string,
   name: string,
   country: string,
   createYear: number,
