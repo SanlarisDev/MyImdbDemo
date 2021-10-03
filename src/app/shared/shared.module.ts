@@ -11,6 +11,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DurationPipe } from './pipes/duration.pipe';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { ErrorService } from './services/error.service';
+import { SuccesService } from './services/succes.service';
+import { UtilsService } from './services/utils.service';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,6 @@ import { MatListModule } from '@angular/material/list';
 
     TranslateModule
   ],
-  providers: []
+  providers: [ErrorService, SuccesService, UtilsService]
 })
 export class SharedModule { }
