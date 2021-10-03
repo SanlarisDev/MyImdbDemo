@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SpinnerMovieService } from 'src/app/pages/movie/spinner-movie.service';
+import { finalize } from 'rxjs/operators';
+import { SpinnerMovieService } from 'src/app/pages/movie/services/spinner-movie.service';
 import { URLS } from 'src/app/shared/urls';
-import { Movie } from './movie';
-import { MovieService } from './movie.service';
+import { MovieEntity } from './movie.entity';
+import { MovieService } from './services/movie.service';
 
 @Component({
   selector: 'app-movie',
@@ -10,7 +11,7 @@ import { MovieService } from './movie.service';
   styleUrls: ['./movie.component.scss']
 })
 export class MovieComponent implements OnInit {
-  public listMovies?: Movie[];
+  public listMovies?: MovieEntity[];
   public loadingListMovies: boolean = true;
   public urls = URLS;
 
@@ -18,10 +19,9 @@ export class MovieComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.movieService.getAllMovies().subscribe({
-      next: (_listMovies) => {this.listMovies = _listMovies},
-      error: () => {},
-      complete: () => {this.loadingListMovies = false}
+    this.movieService.getAllMovies().pipe(finalize(() => this.loadingListMovies = false))
+    .subscribe( (_listMovies: MovieEntity[]) => {
+      this.listMovies = _listMovies;
     });
   }
 
