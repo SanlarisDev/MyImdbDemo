@@ -7,13 +7,13 @@
     <div class="movie" *ngIf="movie">
         <!-- Poster -->
         <mat-card class="movie__poster">
-            <img mat-card-image src="{{movie.poster || 'https://upload.wikimedia.org/wikipedia/commons/b/ba/No_image_available_400_x_600.svg'}} ">
+            <img *ngIf="movie.poster" mat-card-image src="{{movie.poster || 'https://upload.wikimedia.org/wikipedia/commons/b/ba/No_image_available_400_x_600.svg'}} ">
             <mat-card-content class="poster__content">
-                <div class="content content__data" *ngIf="movie.hasOwnProperty('imdbRating')">
+                <div class="content content__data" *ngIf="movie.imdbRating">
                     <span class="data__title">Puntuaciones: </span>
-                    <span class="data__value">{{movie?.imdbRating}}</span>
+                    <span class="data__value">{{movie.imdbRating}}</span>
                 </div>
-                <div class="content content__data" *ngIf="movie.hasOwnProperty('duration')">
+                <div class="content content__data" *ngIf="movie.duration">
                     <span class="data__title">Duración: </span>
                     <span class="data__value">{{movie.duration | duration}}</span>
                 </div>
@@ -22,7 +22,7 @@
 
         <!-- Ficha -->
         <mat-card class="movie__profile">
-            <div class="profile__item" *ngIf="movie.hasOwnProperty('actors') && movie.actors.length > 0">
+            <div class="profile__item" *ngIf="movie.actors && movie.actors.length > 0">
                 <div class="item__title">Actores</div>
                 <div class="item__content">
                     <div class="actors">
@@ -33,13 +33,13 @@
                 </div>
             </div>
 
-            <div class="profile__item" *ngIf="movie.hasOwnProperty('company') && movie.company">
+            <div class="profile__item" *ngIf="movie.company">
                 <div class="item__title">Estudios</div>
                 <div class="item__content">
                     <span>{{movie.company.name}}</span>
                 </div>
             </div>
-            <div class="profile__item" *ngIf="movie.hasOwnProperty('genre') && movie.genre.length > 0">
+            <div class="profile__item" *ngIf="movie.genre && movie.genre.length > 0">
                 <div class="item__title">Géneros</div>
                 <mat-chip-list class="item__content ">
                     <mat-chip *ngFor="let genre of movie.genre" color="primary">

@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ParseService } from 'src/app/shared/parse/parse.service';
 import { URLS } from 'src/app/shared/urls';
 import { Movie } from '../movie';
-import { MovieService } from '../services/movie.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
@@ -16,7 +15,7 @@ export enum modeEdit {EDIT="EDIT", NEW="NEW"}
 })
 export class EditMovieComponent implements OnInit {
 
-  public movie!: Movie | null;
+  public movie!: Movie | {};
   public loadingMovie: boolean = true;
   public urls = URLS;
   public modeEdit = modeEdit;
@@ -26,14 +25,12 @@ export class EditMovieComponent implements OnInit {
   constructor(
     private parseService: ParseService,
     private route: ActivatedRoute,
-    private movieService: MovieService,
     private formBuilder: FormBuilder) {
       this.optionsForm = this.formBuilder.group({floatLabel: new FormControl('auto')});
     }
 
   ngOnInit(): void {
     this.loadingMovie = false;
-    debugger;
     let actualId = this.route.snapshot.paramMap.get('id');
 
     if(actualId){
@@ -44,7 +41,7 @@ export class EditMovieComponent implements OnInit {
       });
 
     } else {
-      this.movie = null;
+      this.movie = new Movie();
       this.loadingMovie = false;
     }
   }

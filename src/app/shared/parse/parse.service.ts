@@ -10,14 +10,12 @@ import { MovieEntity } from 'src/app/pages/movie/movie.entity';
 import { MovieService } from 'src/app/pages/movie/services/movie.service';
 import { ActorService } from '../../pages/actor/services/actor.service';
 import { CompanyService } from '../../pages/company/services/company.service';
-import { ErrorService } from '../services/error.service';
 
 @Injectable()
 export class ParseService {
   constructor(private companyService: CompanyService,
     private actorService: ActorService,
-    private movieService: MovieService,
-    private errorService: ErrorService){}
+    private movieService: MovieService){}
 
     public getMovieWithActorsAndCompanies(idMovie: number): Observable<Movie>{
       let movie$ = this.movieService.getMovie(idMovie);
@@ -37,17 +35,11 @@ export class ParseService {
     }
 
     private parseMovieEntityToMovie(movie: MovieEntity, actors: ActorEntity[], companies: CompanyEntity[]){
-      let _movie: Movie = {
-        id: movie.id,
-        title: movie.title,
-        poster: movie.poster,
-        genre: movie.genre,
-        year: movie.year,
-        duration: movie.duration,
-        imdbRating: movie.imdbRating,
-        actors: this.findActorsByMovieId(actors, movie),
-        company: this.findCompaniessByMovieId(companies, movie),
-      };
+      let _actors: Actor[] = this.findActorsByMovieId(actors, movie);
+      let _company: Company = this.findCompaniessByMovieId(companies, movie);
+
+      let _movie: Movie = new Movie(movie.id, movie.title, movie.poster, movie.genre,
+                                    movie.year, movie.duration, movie.imdbRating, _actors, _company);
       return _movie;
     }
 
@@ -59,36 +51,25 @@ export class ParseService {
         return res.length > 0
       });
 
-      let actorsMap:Actor[] = actorsArr ? actorsArr.map((actor) => ({
-        id: actor.id,
-        firstName: actor.first_name,
-        lastName: actor.last_name,
-        gender: actor.gender,
-        bornCity: actor.bornCity,
-        birthdate: actor.birthdate,
-        img: actor.img,
-        rating: actor.rating,
-        movies: [],
-      })) : [];
+      let actorsMap:Actor[] = actorsArr ? actorsArr.map((actor) => (
+        new Actor(actor.id, actor.first_name, actor.last_name, actor.gender, actor.bornCity,
+                    actor.birthdate, actor.img, actor.rating))) : [];
+
       return actorsMap;
     }
 
-    private findCompaniessByMovieId(companies:CompanyEntity[], movie: MovieEntity): Company | undefined{
+    private findCompaniessByMovieId(companies:CompanyEntity[], movie: MovieEntity): Company{
       let companiesArr = companies.find(company => {
         let res = company.movies.find(movieCompany => {
           return movieCompany === movie.id;
         });
         return res;
       });
-      let companiesMap: Company | undefined = companiesArr ? {
-        id: companiesArr.id,
-        name: companiesArr.name,
-        country: companiesArr.country,
-        createYear: companiesArr.createYear,
-        employees: companiesArr.employees,
-        rating: companiesArr.rating,
-        movies: [],
-      } : undefined;
+
+      let companiesMap: Company = companiesArr ?
+        new Company(companiesArr.id, companiesArr.name, companiesArr.country, companiesArr.createYear,
+        companiesArr.employees, companiesArr.rating) : new Company();
+
       return companiesMap;
     }
 }
