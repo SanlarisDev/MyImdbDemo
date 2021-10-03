@@ -7,7 +7,6 @@ import { MovieService } from './services/movie.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
-import { SpinnerMovieService } from './services/spinner-movie.service';
 import { ParseModule } from 'src/app/shared/parse/parse.module';
 
 @NgModule({
@@ -27,8 +26,7 @@ import { ParseModule } from 'src/app/shared/parse/parse.module';
     ParseModule
   ],
   providers:[
-    MovieService,
-    SpinnerMovieService
+    MovieService
   ]
 })
 export class MovieModule { }
