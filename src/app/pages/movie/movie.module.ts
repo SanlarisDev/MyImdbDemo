@@ -8,6 +8,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { ParseModule } from 'src/app/shared/parse/parse.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -20,8 +23,8 @@ import { ParseModule } from 'src/app/shared/parse/parse.module';
     HttpClientModule,
     SharedModule,
 
-    // material
-    MatCardModule,
+    FormsModule,
+    ReactiveFormsModule,
 
     ParseModule
   ],
