@@ -51,6 +51,7 @@ export class ErrorService{
         message = `Backend ha devuelto el código de error ${error.status}`;
     }
 
+    // TODO: Hacer que no se solapen los snackbar si salen a la vez
    let errorSnackBar: ErrorSnackBar = {
         message: message,
         duration: this.errorDefault.payload.duration,

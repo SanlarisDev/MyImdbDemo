@@ -33,11 +33,11 @@
                 </div>
             </div>
 
-            <div class="profile__item">
+            <div class="profile__item" *ngIf="movie.hasOwnProperty('company') && movie.company">
                 <!-- <div class="profile__item" *ngIf="movie.hasOwnProperty('company') && movie.company)> -->
                 <div class="item__title">Estudios</div>
-                <div class="item__content ">
-                    <span>Estudio</span>
+                <div class="item__content">
+                    <span>{{movie.company.name}}</span>
                 </div>
             </div>
             <div class="profile__item" *ngIf="movie.hasOwnProperty('genre') && movie.genre.length > 0">
