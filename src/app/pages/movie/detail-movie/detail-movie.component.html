@@ -1,1 +1,53 @@
-<p>detail-movie works!</p>
+<app-spinner *ngIf="loadingMovie"></app-spinner>
+
+<div *ngIf="!loadingMovie">
+    <div class="movie--empty" *ngIf="!movie">
+        {{'Esta película no existe en nuestra base de datos' | translate}}
+    </div>
+    <div class="movie" *ngIf="movie">
+        <!-- Poster -->
+        <mat-card class="movie__poster">
+            <img mat-card-image src="{{movie.poster || 'https://upload.wikimedia.org/wikipedia/commons/b/ba/No_image_available_400_x_600.svg'}} ">
+            <mat-card-content class="poster__content">
+                <div class="content content__data" *ngIf="movie.hasOwnProperty('imdbRating')">
+                    <span class="data__title">Puntuaciones: </span>
+                    <span class="data__value">{{movie?.imdbRating}}</span>
+                </div>
+                <div class="content content__data" *ngIf="movie.hasOwnProperty('duration')">
+                    <span class="data__title">Duración: </span>
+                    <span class="data__value">{{movie.duration | duration}}</span>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Ficha -->
+        <mat-card class="movie__profile">
+            <div class="profile__item" *ngIf="movie.hasOwnProperty('actors') && movie.actors.length > 0">
+                <div class="item__title">Actores</div>
+                <div class="item__content">
+                    <div class="actors">
+                        <div *ngFor="let actor of movie.actors">
+                            <a [routerLink]="'../../'+urls.ACTOR +'/'+ actor.id">{{actor.firstName + ' ' + actor.lastName}} </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile__item" *ngIf="movie.hasOwnProperty('company') && movie.company">
+                <!-- <div class="profile__item" *ngIf="movie.hasOwnProperty('company') && movie.company)> -->
+                <div class="item__title">Estudios</div>
+                <div class="item__content">
+                    <span>{{movie.company.name}}</span>
+                </div>
+            </div>
+            <div class="profile__item" *ngIf="movie.hasOwnProperty('genre') && movie.genre.length > 0">
+                <div class="item__title">Géneros</div>
+                <mat-chip-list class="item__content ">
+                    <mat-chip *ngFor="let genre of movie.genre" color="primary">
+                        #{{genre | translate}}
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </mat-card>
+    </div>
+</div>

@@ -6,7 +6,7 @@ export interface Actor {
   lastName: string,
   gender: string,
   bornCity: string,
-  birthdate: Date | string, //TODO: change to only date
+  birthdate: Date, //TODO: change to only date
   img: string,
   rating: number,
   movies: Movie[];
