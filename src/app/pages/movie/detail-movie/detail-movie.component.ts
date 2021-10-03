@@ -4,8 +4,6 @@ import { finalize } from 'rxjs/operators';
 import { ParseService } from 'src/app/shared/parse/parse.service';
 import { URLS } from 'src/app/shared/urls';
 import { Movie } from '../movie';
-import { MovieEntity } from '../movie.entity';
-import { MovieService } from '../services/movie.service';
 
 @Component({
   selector: 'app-detail-movie',
