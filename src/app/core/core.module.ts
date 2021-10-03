@@ -10,6 +10,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ErrorService } from '../shared/services/error.service';
+import { SuccesService } from '../shared/services/succes.service';
 
 
 @NgModule({
@@ -27,10 +30,12 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatSnackBarModule,
 
     CommonModule,
     TranslateModule.forChild({extend: true})
   ],
-  exports: [MainLayoutComponent]
+  exports: [MainLayoutComponent],
+  providers: [ErrorService, SuccesService]
 })
 export class CoreModule { }
