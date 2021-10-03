@@ -1,7 +1,8 @@
 import { Actor } from "../actor/actor";
+import { Company } from "../company/company";
 
 export interface Movie {
-  id: string;
+  id: number;
   title: string;
   poster: string;
   genre: string[];
@@ -9,4 +10,5 @@ export interface Movie {
   duration: number;
   imdbRating: number;
   actors: Actor[];
+  companies: Company[];
 }

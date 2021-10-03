@@ -7,7 +7,7 @@
     <ng-template #listMovieTemplate>
         <div class="listaMovie">
             <mat-card class="listaMovie__cardMovie" *ngFor="let movieItem of listMovies">
-                <a [routerLink]="'./'+ movieItem.id">
+                <a [routerLink]="'./'+ movieItem.id.toString()">
                     <mat-card-header>
                         <mat-card-title>
                             {{movieItem.title}}
@@ -17,11 +17,10 @@
                 </a>
                 <mat-card-content>
                     <span *ngFor="let genre of movieItem.genre ">
-                      <button mat-button color="primary">#{{genre | translate}}</button>
+                      <button mat-stroked-button color="primary">#{{genre | translate}}</button>
                     </span>
                 </mat-card-content>
             </mat-card>
-
         </div>
     </ng-template>
 </div>

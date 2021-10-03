@@ -1,5 +1,5 @@
 export interface MovieEntity {
-  id: string;
+  id: number;
   title: string;
   poster: string;
   genre: string[];

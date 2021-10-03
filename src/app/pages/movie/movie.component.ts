@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
-import { SpinnerMovieService } from 'src/app/pages/movie/spinner-movie.service';
+import { SpinnerMovieService } from 'src/app/pages/movie/services/spinner-movie.service';
 import { URLS } from 'src/app/shared/urls';
-import { Movie } from './movie';
 import { MovieEntity } from './movie.entity';
-import { MovieService } from './movie.service';
+import { MovieService } from './services/movie.service';
 
 @Component({
   selector: 'app-movie',
