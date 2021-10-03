@@ -4,8 +4,10 @@ import { ParseService } from 'src/app/shared/parse/parse.service';
 import { URLS } from 'src/app/shared/urls';
 import { Movie } from '../movie';
 import { MovieService } from '../services/movie.service';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import { finalize } from 'rxjs/operators';
 
-export enum modeEdit {Edit, New}
+export enum modeEdit {EDIT="EDIT", NEW="NEW"}
 
 @Component({
   selector: 'app-edit-movie',
@@ -17,16 +19,34 @@ export class EditMovieComponent implements OnInit {
   public movie!: Movie | null;
   public loadingMovie: boolean = true;
   public urls = URLS;
-  private mode: modeEdit = modeEdit.Edit;
+  public modeEdit = modeEdit;
+  public mode: modeEdit = modeEdit.EDIT;
+  public optionsForm: FormGroup;
 
   constructor(
     private parseService: ParseService,
     private route: ActivatedRoute,
-    private movieService: MovieService) { }
+    private movieService: MovieService,
+    private formBuilder: FormBuilder) {
+      this.optionsForm = this.formBuilder.group({floatLabel: new FormControl('auto')});
+    }
 
   ngOnInit(): void {
+    this.loadingMovie = false;
+    debugger;
+    let actualId = this.route.snapshot.paramMap.get('id');
 
+    if(actualId){
+      this.parseService.getMovieWithActorsAndCompanies(parseInt(actualId))
+      .pipe(finalize(() => this.loadingMovie = false))
+      .subscribe( (_movie: Movie) => {
+        this.movie = _movie;
+      });
 
+    } else {
+      this.movie = null;
+      this.loadingMovie = false;
+    }
   }
 
 }

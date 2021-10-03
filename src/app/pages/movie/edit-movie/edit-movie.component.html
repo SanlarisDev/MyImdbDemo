@@ -1,1 +1,68 @@
 <app-spinner *ngIf="loadingMovie"></app-spinner>
+
+<div *ngIf="(!loadingMovie && mode === modeEdit.EDIT) || mode === modeEdit.NEW">
+    <div class="movie">
+        <mat-card class="movie__wrapper">
+            <form class="form" [formGroup]="optionsForm">
+                <!-- Título -->
+                <mat-form-field class="form__field" appearance="fill">
+                    <mat-label>{{'Título' | translate}}</mat-label>
+                    <input matInput required [value]="">
+                </mat-form-field>
+                <!-- Póster -->
+                <mat-form-field class="form__field" appearance="fill">
+                    <mat-label>{{'Poster' | translate}}</mat-label>
+                    <input matInput required [value]="">
+                </mat-form-field>
+                <!-- Géneros -->
+                <mat-form-field class="form__field" class="example-chip-list" appearance="fill">
+                    <mat-label>{{'Géneros' | translate}}</mat-label>
+                    <mat-chip-list #chipList aria-label="genero">
+                        <!--                        <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable" (removed)="remove(fruit)">
+                            {{fruit.name}}
+                            <button matChipRemove *ngIf="removable">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                        </mat-chip> -->
+                        <!--                         <input placeholder="{{'Nuevo género...' | translate}}"
+                         [matChipInputFor]="chipList"
+                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          [matChipInputAddOnBlur]="addOnBlur"
+                          (matChipInputTokenEnd)="add($event)"
+                          >  -->
+                    </mat-chip-list>
+                </mat-form-field>
+                <!-- Actores -->
+                <mat-form-field class="form__field" appearance="fill">
+                    <mat-label>{{'Actores' | translate}}</mat-label>
+                    <mat-select>
+                        <mat-option value="option">Option</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!-- Estudio -->
+                <mat-form-field class="form__field" appearance="fill">
+                    <mat-label>{{'Estudio' | translate}}</mat-label>
+                    <mat-select>
+                        <mat-option value="option">Option</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!-- Año -->
+                <mat-form-field class="form__field" appearance="fill">
+                    <mat-label>{{'Año' | translate}}</mat-label>
+                    <input matInput required type="number" [value]="">
+                </mat-form-field>
+                <!-- Duración -->
+                <mat-form-field class="form__field" appearance="fill">
+                    <mat-label>{{'Duración' | translate}}</mat-label>
+                    <input matInput required type="number" [value]="">
+                    <span matSuffix>min</span>
+                </mat-form-field>
+                <!-- Puntuación -->
+                <mat-form-field class="form__field" appearance="fill">
+                    <mat-label>{{'Puntuación' | translate}}</mat-label>
+                    <input matInput required type="number" [value]="">
+                </mat-form-field>
+            </form>
+        </mat-card>
+    </div>
+</div>
