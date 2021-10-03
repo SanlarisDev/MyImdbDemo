@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
+import { ParseService } from 'src/app/shared/parse/parse.service';
 import { URLS } from 'src/app/shared/urls';
 import { Movie } from '../movie';
 import { MovieEntity } from '../movie.entity';
-import { MovieService } from '../movie.service';
+import { MovieService } from '../services/movie.service';
 
 @Component({
   selector: 'app-detail-movie',
@@ -12,19 +13,19 @@ import { MovieService } from '../movie.service';
   styleUrls: ['./detail-movie.component.scss']
 })
 export class DetailMovieComponent implements OnInit {
-  public movie!: MovieEntity | null;
+  public movie!: Movie | null;
   public loadingMovie: boolean = true;
   public urls = URLS;
 
-  constructor(private movieService: MovieService, private route: ActivatedRoute) { }
+  constructor(private parseService: ParseService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     let actualId = this.route.snapshot.paramMap.get('id');
 
     if(actualId){
-      this.movieService.getMovie(actualId)
+      this.parseService.getMovieWithActorsAndCompanies(parseInt(actualId))
       .pipe(finalize(() => this.loadingMovie = false))
-      .subscribe( (_movie: MovieEntity) => {
+      .subscribe( (_movie: Movie) => {
         this.movie = _movie;
       });
 

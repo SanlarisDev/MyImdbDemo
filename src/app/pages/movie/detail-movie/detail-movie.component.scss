@@ -1,0 +1,72 @@
+        .movie {
+            display: flex;
+            padding: 20px;
+            flex-direction: row;
+            justify-content: center;
+            &__poster {
+                margin-right: 20px;
+                width: 33%;
+                max-width: 400px;
+                & .poster {
+                    &__content {
+                        color: inherit;
+                        display: flex;
+                        justify-content: space-between;
+                        & .content {
+                            margin: 5px;
+                        }
+                    }
+                }
+            }
+            &__profile {
+                display: flex;
+                flex-direction: column;
+                align-content: flex-start;
+                padding: 30px;
+                width: 33%;
+                & .profile {
+                    &__item {
+                        & .item {
+                            &__title {
+                                font-size: 1.2rem;
+                                padding: 5px;
+                                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                            }
+                            &__content {
+                                padding: 5px 30px 15px;
+                                display: block;
+                                & .mat-chip-list-wrapper {
+                                    margin: 0px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        @media (max-width: 1280px) {
+            .movie {
+                &__poster {
+                    width: 50%;
+                }
+                &__profile {
+                    width: 50%;
+                }
+            }
+        }
+
+        @media (max-width: 840px) {
+            .movie {
+                flex-direction: column;
+                &__poster {
+                    margin-right: 0px;
+                    margin-bottom: 20px;
+                    width: inherit;
+                    max-width: inherit;
+                }
+                &__profile {
+                    width: inherit;
+                }
+            }
+        }
