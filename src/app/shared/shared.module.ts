@@ -14,6 +14,10 @@ import { MatListModule } from '@angular/material/list';
 import { ErrorService } from './services/error.service';
 import { SuccesService } from './services/succes.service';
 import { UtilsService } from './services/utils.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,10 @@ import { UtilsService } from './services/utils.service';
     MatButtonModule,
     MatDividerModule,
     MatListModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
 
     // components
     SpinnerComponent,
