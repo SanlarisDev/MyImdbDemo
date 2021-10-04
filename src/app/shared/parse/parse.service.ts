@@ -26,11 +26,7 @@ export class ParseService {
         _movie$: movie$,
         _actors$: actors$,
         _companies$: companies$})
-        .pipe(
-          tap((result) => console.log(result)),
-          map((data) => this.parseMovieEntityToMovie(data._movie$, data._actors$, data._companies$)),
-          tap((result) => console.log(result))
-          );
+        .pipe(map((data) => this.parseMovieEntityToMovie(data._movie$, data._actors$, data._companies$)));
       return obs;
     }
 

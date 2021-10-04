@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { ParseService } from 'src/app/shared/parse/parse.service';
+import { TitleService } from 'src/app/shared/services/title.service';
 import { URLS } from 'src/app/shared/urls';
 import { Movie } from '../movie';
 
@@ -15,7 +16,10 @@ export class DetailMovieComponent implements OnInit {
   public loadingMovie: boolean = true;
   public urls = URLS;
 
-  constructor(private parseService: ParseService, private route: ActivatedRoute) { }
+  constructor(
+    private parseService: ParseService,
+    private route: ActivatedRoute,
+    private titleService: TitleService) { }
 
   ngOnInit(): void {
     let actualId = this.route.snapshot.paramMap.get('id');
@@ -24,6 +28,8 @@ export class DetailMovieComponent implements OnInit {
       this.parseService.getMovieWithActorsAndCompanies(parseInt(actualId))
       .pipe(finalize(() => this.loadingMovie = false))
       .subscribe( (_movie: Movie) => {
+
+        this.titleService.setTitleMoviePage(_movie.title, _movie.year);
         this.movie = _movie;
       });
 

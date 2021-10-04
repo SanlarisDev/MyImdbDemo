@@ -1,7 +1,9 @@
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { TitleService } from 'src/app/shared/services/title.service';
 import { URLS } from 'src/app/shared/urls';
 
 @Component({
@@ -9,9 +11,8 @@ import { URLS } from 'src/app/shared/urls';
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent implements OnInit{
-  @Input()
-  pageTitle: string = 'My IMDB';
+export class MainLayoutComponent implements OnInit, AfterViewChecked{
+  pageTitle$: Observable<string>;
 
   urls = URLS;
 
@@ -21,8 +22,21 @@ export class MainLayoutComponent implements OnInit{
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver,
+              public titleService: TitleService,
+              public titleBrowser: Title,
+              private cdref: ChangeDetectorRef) {
+    this.pageTitle$ = titleService.title$;
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.pageTitle$.subscribe((title) => {
+      this.titleBrowser.setTitle(title);
+    });
+  }
+
+  ngAfterViewChecked(): void{
+    this.cdref.detectChanges();
+  }
 
 }
