@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { TITLE_MOVIE, TITLE_STORAGE } from 'src/app/shared/constant';
+import { TITLE } from 'src/app/shared/constant';
 import { TitleService } from 'src/app/shared/services/title.service';
 import { URLS } from 'src/app/shared/urls';
 import { MovieEntity } from './movie.entity';
@@ -23,7 +23,7 @@ export class MovieComponent implements OnInit {
     private route: Router){}
 
   ngOnInit(): void {
-    this.titleService.setTitle(TITLE_MOVIE);
+    this.titleService.setTitleMoviePage(TITLE.MOVIE);
 
     this.movieService.getAllMovies().pipe(finalize(() => this.loadingListMovies = false))
     .subscribe( (_listMovies: MovieEntity[]) => {
@@ -33,8 +33,6 @@ export class MovieComponent implements OnInit {
 
   onClickLink(movie: MovieEntity){
     console.log(movie);
-    // TODO: Arreglar cuando tenga Redux
-    localStorage.setItem(TITLE_STORAGE, `${movie.title} (${movie.year})`);
     this.route.navigate(['movie', movie.id.toString()]);
   }
 

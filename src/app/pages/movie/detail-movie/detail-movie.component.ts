@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { TITLE_STORAGE } from 'src/app/shared/constant';
 import { ParseService } from 'src/app/shared/parse/parse.service';
 import { TitleService } from 'src/app/shared/services/title.service';
 import { URLS } from 'src/app/shared/urls';
@@ -25,12 +24,12 @@ export class DetailMovieComponent implements OnInit {
   ngOnInit(): void {
     let actualId = this.route.snapshot.paramMap.get('id');
 
-    this.getTitle();
-
     if(actualId){
       this.parseService.getMovieWithActorsAndCompanies(parseInt(actualId))
       .pipe(finalize(() => this.loadingMovie = false))
       .subscribe( (_movie: Movie) => {
+
+        this.titleService.setTitleMoviePage(_movie.title, _movie.year);
         this.movie = _movie;
       });
 
@@ -38,11 +37,5 @@ export class DetailMovieComponent implements OnInit {
       this.movie = null;
       this.loadingMovie = false;
     }
-  }
-
-  getTitle(){
-    // TODO: Arreglar con Redux
-    let title = localStorage.getItem(TITLE_STORAGE) || '';
-    this.titleService.setTitle(title);
   }
 }

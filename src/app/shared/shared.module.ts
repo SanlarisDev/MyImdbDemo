@@ -62,6 +62,6 @@ import {MatSelectModule} from '@angular/material/select';
 
     TranslateModule
   ],
-  providers: [ErrorService, SuccesService, UtilsService, TitleService]
+  providers: [ErrorService, SuccesService, UtilsService]
 })
 export class SharedModule { }

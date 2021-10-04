@@ -5,6 +5,8 @@ import { URLS } from 'src/app/shared/urls';
 import { Movie } from '../movie';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import { finalize } from 'rxjs/operators';
+import { TitleService } from 'src/app/shared/services/title.service';
+import { TITLE } from 'src/app/shared/constant';
 
 export enum modeEdit {EDIT="EDIT", NEW="NEW"}
 
@@ -25,13 +27,15 @@ export class EditMovieComponent implements OnInit {
   constructor(
     private parseService: ParseService,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private titleService: TitleService) {
       this.optionsForm = this.formBuilder.group({floatLabel: new FormControl('auto')});
     }
 
   ngOnInit(): void {
     this.loadingMovie = false;
     let actualId = this.route.snapshot.paramMap.get('id');
+    this.titleService.setTitleMoviePage(TITLE.MOVIE_EDIT);
 
     if(actualId){
       this.parseService.getMovieWithActorsAndCompanies(parseInt(actualId))
@@ -42,6 +46,7 @@ export class EditMovieComponent implements OnInit {
 
     } else {
       this.movie = new Movie();
+      this.titleService.setTitleMoviePage(TITLE.MOVIE_CREATE);
       this.loadingMovie = false;
     }
   }
