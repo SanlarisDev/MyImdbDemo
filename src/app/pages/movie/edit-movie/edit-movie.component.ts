@@ -4,13 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { ParseService } from 'src/app/shared/parse/parse.service';
 import { URLS } from 'src/app/shared/urls';
 import { Movie } from '../movie';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { Actor } from '../../actor/actor';
 import { ActorEntity } from '../../actor/actor.entity';
 import { Observable } from 'rxjs';
 import { CompanyEntity } from '../../company/company.entity';
+import { TitleService } from 'src/app/shared/services/title.service';
+import { TITLE } from 'src/app/shared/constant';
 
 export enum modeEdit {EDIT="EDIT", NEW="NEW"}
 
@@ -49,7 +51,8 @@ export class EditMovieComponent implements OnInit {
     private parseService: ParseService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private location: Location,) {
+    private location: Location,
+    private titleService: TitleService) {
       this.movieForm = this.formBuilder.group({floatLabel: new FormControl('auto')});
 
       this.listActors$ = this.parseService.actors$;
@@ -58,6 +61,7 @@ export class EditMovieComponent implements OnInit {
 
   ngOnInit(): void {
     let actualId = this.route.snapshot.paramMap.get('id');
+    this.titleService.setTitleMoviePage(TITLE.MOVIE_EDIT);
 
     this.movieForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -85,12 +89,11 @@ export class EditMovieComponent implements OnInit {
         this.movieForm.controls['year'].setValue(_movie.year);
         this.movieForm.controls['duration'].setValue(_movie.duration);
         this.movieForm.controls['imdbRating'].setValue(_movie.imdbRating);
-
-
       });
 
     } else {
       this.movie = new Movie();
+      this.titleService.setTitleMoviePage(TITLE.MOVIE_CREATE);
       this.loadingMovie = false;
     }
   }

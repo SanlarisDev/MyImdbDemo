@@ -7,7 +7,7 @@
     <ng-template #listMovieTemplate>
         <div class="listaMovie">
             <mat-card class="listaMovie__cardMovie" *ngFor="let movieItem of listMovies">
-                <a [routerLink]="'./'+ movieItem.id.toString()">
+                <a (click)="onClickLink(movieItem)">
                     <mat-card-header>
                         <mat-card-title>
                             {{movieItem.title}}

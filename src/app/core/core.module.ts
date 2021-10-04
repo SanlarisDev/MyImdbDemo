@@ -13,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorService } from '../shared/services/error.service';
 import { SuccesService } from '../shared/services/succes.service';
+import { TitleService } from '../shared/services/title.service';
 
 
 @NgModule({
@@ -36,6 +37,6 @@ import { SuccesService } from '../shared/services/succes.service';
     TranslateModule.forChild({extend: true})
   ],
   exports: [MainLayoutComponent],
-  providers: [ErrorService, SuccesService]
+  providers: [ErrorService, SuccesService, TitleService]
 })
 export class CoreModule { }

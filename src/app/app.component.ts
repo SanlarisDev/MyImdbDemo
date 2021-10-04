@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TITLE_DEFAULT } from './shared/constant';
+import { TITLE } from './shared/constant';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,5 @@ import { TITLE_DEFAULT } from './shared/constant';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = TITLE_DEFAULT;
+  title = TITLE.DEFAULT;
 }
