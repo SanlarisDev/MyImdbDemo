@@ -4,7 +4,8 @@ import { ActorComponent } from './actor.component';
 import { ActorRoutingModule } from './actor-routing.module';
 import { ParseService } from 'src/app/shared/parse/parse.service';
 import { ActorService } from './services/actor.service';
-import { ParseModule } from 'src/app/shared/parse/parse.module';
+import { SharedMovieActorCompanyModule } from 'src/app/shared/parse/sharedMovieActorCompany.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,9 +14,12 @@ import { ParseModule } from 'src/app/shared/parse/parse.module';
     ActorComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     CommonModule,
-    ActorRoutingModule
+    ActorRoutingModule,
+    SharedMovieActorCompanyModule
   ],
-  providers: [ActorService]
+  providers: [ActorService, ParseService]
 })
 export class ActorModule { }

@@ -4,6 +4,7 @@ import { CompanyComponent } from './company.component';
 import { CompanyRoutingModule } from './company-routing.module';
 import { CompanyService } from './services/company.service';
 import { ParseService } from 'src/app/shared/parse/parse.service';
+import { SharedMovieActorCompanyModule } from 'src/app/shared/parse/sharedMovieActorCompany.module';
 
 
 
@@ -13,8 +14,9 @@ import { ParseService } from 'src/app/shared/parse/parse.service';
   ],
   imports: [
     CommonModule,
-    CompanyRoutingModule
+    CompanyRoutingModule,
+    SharedMovieActorCompanyModule
   ],
-  providers: [CompanyService]
+  providers: [CompanyService, ParseService]
 })
 export class CompanyModule { }

@@ -17,6 +17,9 @@ export class ParseService {
     private actorService: ActorService,
     private movieService: MovieService){}
 
+    public readonly actors$ = this.actorService.getAllActors().pipe(catchError(err => of([])));
+    public readonly companies$ = this.companyService.getAllCompanies().pipe(catchError(err => of([])));
+
     public getMovieWithActorsAndCompanies(idMovie: number): Observable<Movie>{
       let movie$ = this.movieService.getMovie(idMovie);
       let actors$ = this.actorService.getAllActors().pipe(catchError(err => of([])));
@@ -29,7 +32,7 @@ export class ParseService {
         .pipe(
           tap((result) => console.log(result)),
           map((data) => this.parseMovieEntityToMovie(data._movie$, data._actors$, data._companies$)),
-          tap((result) => console.log(result))
+          //tap((result) => console.log(result))
           );
       return obs;
     }

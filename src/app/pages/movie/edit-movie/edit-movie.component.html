@@ -3,65 +3,81 @@
 <div *ngIf="(!loadingMovie && mode === modeEdit.EDIT) || mode === modeEdit.NEW">
     <div class="movie">
         <mat-card class="movie__wrapper">
-            <form class="form" [formGroup]="optionsForm">
+            <form class="form" (ngSubmit)="onSubmit()" [formGroup]="movieForm">
                 <!-- Título -->
                 <mat-form-field class="form__field" appearance="fill">
                     <mat-label>{{'Título' | translate}}</mat-label>
-                    <input matInput required [value]="">
+                    <input matInput required formControlName="title">
                 </mat-form-field>
                 <!-- Póster -->
                 <mat-form-field class="form__field" appearance="fill">
                     <mat-label>{{'Poster' | translate}}</mat-label>
-                    <input matInput required [value]="">
+                    <input matInput formControlName="poster">
                 </mat-form-field>
+
                 <!-- Géneros -->
                 <mat-form-field class="form__field" class="example-chip-list" appearance="fill">
                     <mat-label>{{'Géneros' | translate}}</mat-label>
-                    <mat-chip-list #chipList aria-label="genero">
-                        <!--                        <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable" (removed)="remove(fruit)">
-                            {{fruit.name}}
-                            <button matChipRemove *ngIf="removable">
+                    <mat-chip-list #chipListGenre aria-label="genre" formControlName="genre">
+                        <mat-chip *ngFor="let genre of movie.genre" [selectable]="genreSelectable" [removable]="genreRemovable" (removed)="removeGenre(genre)">
+                            {{genre}}
+                            <button matChipRemove *ngIf="genreRemovable">
                         <mat-icon>cancel</mat-icon>
                       </button>
-                        </mat-chip> -->
-                        <!--                         <input placeholder="{{'Nuevo género...' | translate}}"
-                         [matChipInputFor]="chipList"
-                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                          [matChipInputAddOnBlur]="addOnBlur"
-                          (matChipInputTokenEnd)="add($event)"
-                          >  -->
+                        </mat-chip>
+                        <input placeholder="{{'Nuevo género...' | translate}}" [matChipInputFor]="chipListGenre" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="genreAddOnBlur" (matChipInputTokenEnd)="addGenre($event)">
                     </mat-chip-list>
                 </mat-form-field>
+
                 <!-- Actores -->
                 <mat-form-field class="form__field" appearance="fill">
                     <mat-label>{{'Actores' | translate}}</mat-label>
-                    <mat-select>
-                        <mat-option value="option">Option</mat-option>
-                    </mat-select>
+                    <mat-chip-list #chipListActor aria-label="actor" formControlName="actors">
+                        <mat-chip *ngFor="let actor of movie.actors" [selectable]="actorSelectable" [removable]="actorRemovable" (removed)="removeActor(actor)">
+                            {{actor.firstName}}
+                            <button matChipRemove *ngIf="actorRemovable">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                        </mat-chip>
+                        <input placeholder="{{'Nuevo actor...' | translate}}" #ActorInput [matAutocomplete]="auto" [matChipInputFor]="chipListActor" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addActor($event)">
+                    </mat-chip-list>
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedActor($event)">
+                        <mat-option *ngFor="let actor of listActors$ | async" [value]="actor">
+                            {{actor.first_name +' '+ actor.last_name}}
+                        </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
+
                 <!-- Estudio -->
-                <mat-form-field class="form__field" appearance="fill">
+                <!--                 <mat-form-field class="form__field" appearance="fill">
                     <mat-label>{{'Estudio' | translate}}</mat-label>
-                    <mat-select>
-                        <mat-option value="option">Option</mat-option>
-                    </mat-select>
-                </mat-form-field>
+                    <input type="text" matInput formControlName="company" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="name">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field> -->
                 <!-- Año -->
                 <mat-form-field class="form__field" appearance="fill">
                     <mat-label>{{'Año' | translate}}</mat-label>
-                    <input matInput required type="number" [value]="">
+                    <input matInput required type="number" formControlName="year">
                 </mat-form-field>
                 <!-- Duración -->
                 <mat-form-field class="form__field" appearance="fill">
                     <mat-label>{{'Duración' | translate}}</mat-label>
-                    <input matInput required type="number" [value]="">
+                    <input matInput required type="number" formControlName="duration">
                     <span matSuffix>min</span>
                 </mat-form-field>
                 <!-- Puntuación -->
                 <mat-form-field class="form__field" appearance="fill">
                     <mat-label>{{'Puntuación' | translate}}</mat-label>
-                    <input matInput required type="number" [value]="">
+                    <input matInput type="number" formControlName="imdbRating">
                 </mat-form-field>
+                <div class="form__buttons">
+                    <button type="submit" mat-raised-button color="primary">Aceptar</button>
+                    <button (click)="onCancel()" mat-raised-button>Cancelar</button>
+                </div>
             </form>
         </mat-card>
     </div>

@@ -6,11 +6,8 @@ import { MovieRoutingModule } from './movie-routing.module';
 import { MovieService } from './services/movie.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { MatCardModule } from '@angular/material/card';
-import { ParseModule } from 'src/app/shared/parse/parse.module';
+import { SharedMovieActorCompanyModule } from 'src/app/shared/parse/sharedMovieActorCompany.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -19,14 +16,13 @@ import { MatInputModule } from '@angular/material/input';
     DetailMovieComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     MovieRoutingModule,
     HttpClientModule,
     SharedModule,
 
-    FormsModule,
-    ReactiveFormsModule,
-
-    ParseModule
+    SharedMovieActorCompanyModule
   ],
   providers:[
     MovieService
