@@ -2,6 +2,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { TitleService } from 'src/app/shared/services/title.service';
 import { URLS } from 'src/app/shared/urls';
 
 @Component({
@@ -10,7 +11,6 @@ import { URLS } from 'src/app/shared/urls';
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent implements OnInit{
-  @Input()
   pageTitle: string = 'My IMDB';
 
   urls = URLS;
@@ -21,8 +21,13 @@ export class MainLayoutComponent implements OnInit{
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, private titleService: TitleService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.titleService.getTitle().subscribe(title => {
+      this.pageTitle = title;
+      console.log('title: ',this.pageTitle);
+    });
+  }
 
 }

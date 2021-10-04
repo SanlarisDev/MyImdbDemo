@@ -14,6 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { ErrorService } from './services/error.service';
 import { SuccesService } from './services/succes.service';
 import { UtilsService } from './services/utils.service';
+import { TitleService } from './services/title.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -61,6 +62,6 @@ import {MatSelectModule} from '@angular/material/select';
 
     TranslateModule
   ],
-  providers: [ErrorService, SuccesService, UtilsService]
+  providers: [ErrorService, SuccesService, UtilsService, TitleService]
 })
 export class SharedModule { }
