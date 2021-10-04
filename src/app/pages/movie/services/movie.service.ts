@@ -48,5 +48,14 @@ export class MovieService {
   setMovie(movie: MovieEntity): Observable<MovieEntity> {
     return this.http.put<MovieEntity>(this._baseUrl  + '/' + movie.id.toString(), movie).pipe(catchError((e) => this.errorService.handleError(e, 'la película')));
   }
+
+    /**
+   *
+   * @param id
+   * @returns Observable<MovieEntity>
+   */
+     deleteMovie(id: number): Observable<MovieEntity> {
+      return this.http.delete<MovieEntity>(this._baseUrl  + '/' + id.toString()).pipe(catchError((e) => this.errorService.handleError(e, 'la película')));
+    }
 }
 

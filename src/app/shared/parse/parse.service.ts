@@ -30,7 +30,7 @@ export class ParseService {
         _actors$: actors$,
         _companies$: companies$})
         .pipe(
-          tap((result) => console.log(result)),
+          //tap((result) => console.log(result)),
           map((data) => this.parseMovieEntityToMovie(data._movie$, data._actors$, data._companies$)),
           //tap((result) => console.log(result))
           );

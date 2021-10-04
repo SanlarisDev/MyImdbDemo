@@ -9,13 +9,17 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar color="primary">
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
-            <span>{{pageTitle$ | async}}</span>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset$ | async) && !buttonBackShow">
+              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <button type="button" aria-label="Back" mat-icon-button (click)="onBack()" *ngIf="(isHandset$ | async) && buttonBackShow">
+              <mat-icon aria-label="Side nav toggle icon">arrow_back</mat-icon>
+            </button>
+            <span>{{pageTitle}}</span>
         </mat-toolbar>
         <main>
             <router-outlet></router-outlet>
         </main>
+        <app-float-button class="floatButton" [buttons]="buttons$ | async" (buttonPress)="onButtonPress($event)"></app-float-button>
     </mat-sidenav-content>
 </mat-sidenav-container>

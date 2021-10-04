@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule, MatSpinner} from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DialogInfoComponent } from './components/dialog-info/dialog-info.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
@@ -14,18 +13,17 @@ import { MatListModule } from '@angular/material/list';
 import { ErrorService } from './services/error.service';
 import { SuccesService } from './services/succes.service';
 import { UtilsService } from './services/utils.service';
-import { TitleService } from './services/title.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { FloatButtonComponent } from '../core/layout/components/float-button/float-button.component';
 
 @NgModule({
   declarations: [
     SpinnerComponent,
-    DialogInfoComponent,
     DurationPipe
   ],
   imports: [
@@ -57,6 +55,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatSelectModule,
     MatIconModule,
     MatAutocompleteModule,
+    MatSpinner,
+    MatIconModule,
 
     // components
     SpinnerComponent,

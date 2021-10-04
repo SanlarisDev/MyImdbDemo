@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogInfoComponent } from './dialog-info.component';
+import { FloatButtonComponent } from './float-button.component';
 
-describe('DialogInfoComponent', () => {
-  let component: DialogInfoComponent;
-  let fixture: ComponentFixture<DialogInfoComponent>;
+describe('FloatButtonComponent', () => {
+  let component: FloatButtonComponent;
+  let fixture: ComponentFixture<FloatButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogInfoComponent ]
+      declarations: [ FloatButtonComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DialogInfoComponent);
+    fixture = TestBed.createComponent(FloatButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

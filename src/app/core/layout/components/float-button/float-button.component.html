@@ -1,0 +1,5 @@
+<div *ngIf="buttons && buttons.length > 0">
+    <button class="floatButton" *ngFor="let button of buttons" mat-fab [color]="button.color" [attr.aria-label]="button.ariaLabel" (click)="onClick(button.action)">
+    <mat-icon>{{button.icon}}</mat-icon>
+  </button>
+</div>

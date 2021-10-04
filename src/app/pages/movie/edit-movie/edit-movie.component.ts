@@ -13,6 +13,9 @@ import { Observable } from 'rxjs';
 import { CompanyEntity } from '../../company/company.entity';
 import { TitleService } from 'src/app/shared/services/title.service';
 import { TITLE } from 'src/app/shared/constant';
+import { ColorButton, FloatButton } from 'src/app/core/layout/components/float-button/float-buttom.model';
+import { FloatButtonService } from 'src/app/core/layout/services/float-button.service';
+import { MovieService } from '../services/movie.service';
 
 export enum modeEdit {EDIT="EDIT", NEW="NEW"}
 
@@ -28,6 +31,7 @@ export class EditMovieComponent implements OnInit {
   public urls = URLS;
   public modeEdit = modeEdit;
   public mode: modeEdit = modeEdit.EDIT;
+  public actualId: string | null;
 
   // Chips
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -52,16 +56,18 @@ export class EditMovieComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private location: Location,
-    private titleService: TitleService) {
+    private titleService: TitleService,
+    private floatButtonService: FloatButtonService,
+    private movieService: MovieService) {
       this.movieForm = this.formBuilder.group({floatLabel: new FormControl('auto')});
 
       this.listActors$ = this.parseService.actors$;
       this.listCompanies$ = this.parseService.companies$;
+      this.actualId = this.route.snapshot.paramMap.get('id');
     }
 
   ngOnInit(): void {
-    let actualId = this.route.snapshot.paramMap.get('id');
-    this.titleService.setTitleMoviePage(TITLE.MOVIE_EDIT);
+    this.titleService.setTitleMoviePage(TITLE.MOVIE_EDIT, undefined, true);
 
     this.movieForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -72,14 +78,20 @@ export class EditMovieComponent implements OnInit {
       year: ['', Validators.required],
       duration: ['', Validators.required],
       imdbRating: ['']
-    })
+    });
 
-    if(actualId){
-      this.parseService.getMovieWithActorsAndCompanies(parseInt(actualId))
+
+    if(this.actualId){
+      // Dont work in this.movieService.delete..., required string, not string | undefined
+      var id: string = this.actualId;
+      this.floatButtonService.setFloatButtons([
+        new FloatButton(ColorButton.WARN, 'Eliminar película', 'delete', () => this.movieService.deleteMovie(parseInt(id)))
+      ]);
+
+      this.parseService.getMovieWithActorsAndCompanies(parseInt(this.actualId))
       .pipe(finalize(() => this.loadingMovie = false))
       .subscribe( (_movie: Movie) => {
         this.movie = _movie;
-        console.log(_movie);
 
         this.movieForm.controls['title'].setValue(_movie.title);
         this.movieForm.controls['poster'].setValue(_movie.poster);
@@ -92,8 +104,13 @@ export class EditMovieComponent implements OnInit {
       });
 
     } else {
+
+      this.floatButtonService.setFloatButtons([
+        new FloatButton(ColorButton.WARN, 'Eliminar película', 'delete', () => this.movieForm.reset)
+      ]);
+
       this.movie = new Movie();
-      this.titleService.setTitleMoviePage(TITLE.MOVIE_CREATE);
+      this.titleService.setTitleMoviePage(TITLE.MOVIE_CREATE, undefined, true);
       this.loadingMovie = false;
     }
   }
@@ -131,7 +148,6 @@ export class EditMovieComponent implements OnInit {
 
   public addActor(event: any){
     if(this.movie.actors){
-      console.log("event.value actor: ", event.value.first_name);
       const value = event.value;
 
       if (value) {

@@ -14,11 +14,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorService } from '../shared/services/error.service';
 import { SuccesService } from '../shared/services/succes.service';
 import { TitleService } from '../shared/services/title.service';
+import { FloatButtonComponent } from './layout/components/float-button/float-button.component';
+import { FloatButtonService } from './layout/services/float-button.service';
 
 
 @NgModule({
   declarations: [
-    MainLayoutComponent
+    MainLayoutComponent,
+    FloatButtonComponent
   ],
   imports: [
     // vendor
@@ -37,6 +40,6 @@ import { TitleService } from '../shared/services/title.service';
     TranslateModule.forChild({extend: true})
   ],
   exports: [MainLayoutComponent],
-  providers: [ErrorService, SuccesService, TitleService]
+  providers: [ErrorService, SuccesService, TitleService, FloatButtonService]
 })
-export class CoreModule { }
+export class CoreModule {}

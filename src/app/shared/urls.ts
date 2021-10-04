@@ -5,7 +5,8 @@ export const URLS = {
 
   DETAIL: ':id',
   EDIT: ':id/edit',
-  CREATE: 'create'
+  CREATE: 'create',
+  ONLY_EDIT: 'edit'
 }
 
 export const URLSAPI = {

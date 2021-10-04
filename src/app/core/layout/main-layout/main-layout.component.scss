@@ -15,3 +15,12 @@
     top: 0;
     z-index: 1;
 }
+
+.floatButton {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    z-index: 10;
+}
